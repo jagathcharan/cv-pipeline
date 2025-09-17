@@ -90,3 +90,4 @@ rm -f data/.markers/build-id && docker-compose up
 - [x] Organized repository structure (analysis, model, pipeline)
 - [x] Streamlit pages for Data, Training, Evaluation
 - [x] Scripts and outputs saved under `data/`
+
