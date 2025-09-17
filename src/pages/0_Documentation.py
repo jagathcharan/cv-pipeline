@@ -1,57 +1,51 @@
 import streamlit as st
+from pathlib import Path
+from functools import lru_cache
+
+
+DOC_FILES = {
+    "README": Path("README.md"),
+    "Usage Guide": Path("USAGE_GUIDE.md"),
+    "Architecture": Path("ARCHITECTURE.md"),
+    "Developer Guide": Path("DEVELOPER_GUIDE.md"),
+    "Components": Path("src/COMPONENTS.md"),
+    "Pages": Path("src/pages/PAGES.md"),
+}
+
+
+@lru_cache(maxsize=None)
+def _read_text(path_str: str) -> str:
+    path = Path(path_str)
+    if not path.exists():
+        return f"_Missing file: {path_str}_"
+    try:
+        return path.read_text(encoding="utf-8")
+    except Exception as exc:  # noqa: BLE001
+        return f"_Failed to read {path_str}: {exc}_"
 
 
 def main():
     st.set_page_config(page_title="Documentation | Traffic Detection", layout="wide")
     st.title("Project Documentation")
-    st.markdown(
-        """
-        ### Overview
-        - Focus on object detection with YOLO (bounding boxes), no segmentation.
-        - Automated end-to-end pipeline across pages: About Data and Evaluation only.
 
-        ### Model Choice & Rationale
-        - **YOLOv8n** chosen for speed and solid baseline on CPU.
-        - One-stage detector with CSP backbone and PAN/FPN neck.
+    st.sidebar.header("Documentation Sections")
+    available_titles = [title for title, p in DOC_FILES.items() if Path(p).exists()]
+    if not available_titles:
+        available_titles = list(DOC_FILES.keys())
 
-        ### Metrics
-        - mAP@0.5 and mAP@0.5:0.95 for detection performance.
-        - Confusion matrix, PR curves, and F1 vs confidence for diagnostic insights.
+    selection = st.sidebar.radio("Select a document", available_titles, index=0)
 
-        ### How to Run
-        ```bash
-        ./run.sh
-        # open http://localhost:8501
-        ```
+    if selection:
+        content = _read_text(str(DOC_FILES[selection]))
+        st.markdown(content)
 
-        ### Data
-        - Expected under `/app/data/traffic-detection-project` mounted from `./data`.
-        - Use the About Data page for distribution, co-occurrence, and sample visualization.
-
-        ### Automated Training & Evaluation
-        - Training is triggered automatically (CPU-friendly, 1 epoch) from the Evaluation page.
-        - Best weights are saved to `/app/data/outputs/yolo_train/weights/best.pt`.
-        - Evaluation runs automatically on the best weights and renders reports.
-
-        ### Evaluation
-        - No inputs required. Runs on the latest trained weights and shows metrics and plots.
-
-        ### Reproducibility
-        - Dockerized, with `.dockerignore` to preserve dependency cache.
-        - Requirements installed once; source changes do not re-install deps.
-
-        ### Class Matching in Evaluation
-        - Evaluation checks the intersection between model classes and dataset classes.
-        - If no overlap, evaluation is blocked to avoid misleading metrics.
-
-        ### UI Scope
-        - Pages: Documentation, About Data, Evaluation (outputs only).
-        - No manual training/evaluation inputs; UI displays outputs and reports.
-        """
-    )
+    with st.expander("Show all documents"):
+        for title, path in DOC_FILES.items():
+            st.markdown(f"## {title}")
+            st.markdown(_read_text(str(path)))
+            st.divider()
 
 
 if __name__ == "__main__":
     main()
-
 
