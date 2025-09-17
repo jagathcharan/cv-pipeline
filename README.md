@@ -6,7 +6,8 @@
   - Streamlit multipage app for data analysis and report visualization (no manual training from UI).
   - Ultralytics YOLO training/evaluation pipeline (CPU-compatible).
   - Dockerized for reproducibility.
-
+## Arch Dig
+![Diagram](diagram-export-9-17-2025-10_13_22-PM.png)
 ## Repository Structure
 ```
 src/
@@ -90,4 +91,5 @@ rm -f data/.markers/build-id && docker-compose up
 - [x] Organized repository structure (analysis, model, pipeline)
 - [x] Streamlit pages for Data, Training, Evaluation
 - [x] Scripts and outputs saved under `data/`
+
 
