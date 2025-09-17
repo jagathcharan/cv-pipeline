@@ -1,0 +1,16 @@
+numpy
+pandas
+matplotlib
+seaborn
+opencv-python
+pyyaml
+plotly
+streamlit
+pylint
+black
+ultralytics
+torch
+torchvision
+yt_dlp
+streamlit-drawable-canvas
+pytube
