@@ -32,7 +32,7 @@ data/
 ```bash
 docker-compose up --build
 ```
-Then open `http://localhost:8501`.
+Then open `http://127.0.0.1:8501/`.
 
 ## Streamlit Pages
 - About Data: dataset structure, class distributions, per-image stats, bbox stats, co-occurrence, examples.
@@ -91,5 +91,6 @@ rm -f data/.markers/build-id && docker-compose up
 - [x] Organized repository structure (analysis, model, pipeline)
 - [x] Streamlit pages for Data, Training, Evaluation
 - [x] Scripts and outputs saved under `data/`
+
 
 
