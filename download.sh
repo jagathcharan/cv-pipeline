@@ -6,6 +6,10 @@ ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
 DATA_DIR="$ROOT_DIR/data/traffic-detection-project"
 ZIP_PATH="$DATA_DIR/traffic-detection-project.zip"
 
+echo "🚀 Cleaning old data..."
+rm -rf "$ROOT_DIR/data"/*
+mkdir -p "$DATA_DIR"
+
 echo "==> Preparing dataset..."
 if [ -d "$DATA_DIR" ] && [ -f "$DATA_DIR/data.yaml" ]; then
   echo "Dataset already present at: $DATA_DIR"
