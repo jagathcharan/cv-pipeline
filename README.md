@@ -28,6 +28,8 @@ data/
 ```
 
 ## Getting Started
+First cloue the repo and start the process
+
 1) Build and run with Docker Compose (dataset auto-downloaded inside container):
 ```bash
 docker-compose up --build
@@ -91,6 +93,7 @@ rm -f data/.markers/build-id && docker-compose up
 - [x] Organized repository structure (analysis, model, pipeline)
 - [x] Streamlit pages for Data, Training, Evaluation
 - [x] Scripts and outputs saved under `data/`
+
 
 
 
